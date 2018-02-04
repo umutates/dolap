@@ -1,7 +1,7 @@
 /**
 
  */
-package com.dolap.service;
+package com.dolap.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dolap.entity.Product;
 import com.dolap.repository.IProductDao;
+import com.dolap.service.IProductService;
 
 /**
  * @author umutates
@@ -16,12 +17,13 @@ import com.dolap.repository.IProductDao;
  */
 @Service
 @Transactional
-public class ProductService {
+public class ProductService implements IProductService {
 	
 	@Autowired
 	IProductDao productDao;
 	
-	public void insertProduct(Product product) {
+	@Override
+	public void insert(Product product) {
 		productDao.insert(product);
 	}
 

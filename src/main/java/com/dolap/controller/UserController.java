@@ -2,28 +2,28 @@ package com.dolap.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dolap.entity.Product;
-import com.dolap.service.impl.ProductService;
+import com.dolap.entity.User;
+import com.dolap.service.IUserService;
 
-@RestController
-@RequestMapping("/product")
-public class ProductController {
+@Controller
+@RequestMapping("/user")
+public class UserController {
 	
 	@Autowired
-	ProductService productService;
-
+	IUserService userService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
-	@ResponseBody
-	public boolean save(@RequestBody Product product) {
-        productService.insert(product);		
-		
-        return true;
+	 @PostMapping("/save")
+	public String save(@ModelAttribute User user) {
+       userService.insert(user);	
+        return "redirect:/";
 	}
+
 }
