@@ -10,7 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.dolap.entity.User;
+import com.dolap.repository.impl.UserDao;
 import com.dolap.service.impl.UserService;
+import com.dolap.util.Role;
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -30,20 +33,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
 					.antMatchers("/h2","/", "/index", "/login/**","/product/**","/user/save").permitAll()
+					.antMatchers("/user/**").hasAnyRole("USER")
 					.antMatchers("/admin/**").hasAnyRole("ADMIN")
-					.antMatchers("/","/index","/user/**").hasAnyRole("USER")
 					.anyRequest().authenticated()
                 .and()
                 .formLogin()
 					.loginPage("/login").
 					failureUrl("/login?error=true")
-					.defaultSuccessUrl("/welcome")
+					.defaultSuccessUrl("/index",true)
 					.usernameParameter("email")
 					.passwordParameter("password")
 					.and().logout()
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 					.logoutSuccessUrl("/").and().exceptionHandling()
 					.accessDeniedPage("/access-denied");
+        
     }
 
     // create two users, admin and user
@@ -59,4 +63,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	       .ignoring()
 	       .antMatchers("resources/static/**");
 	}
+    
 }

@@ -6,6 +6,6 @@ package com.dolap.util;
  */
 public enum Role {
 	
-	USER,ADMİN;
+	USER,ADMIN;
 
 }

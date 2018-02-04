@@ -24,7 +24,7 @@ public class HomePageController {
 	    @Autowired
 	    IUserService userService;
 	
-	    @RequestMapping(value="/")
+	    @RequestMapping(value= {"/","/index"})
 	    public String getIndexPage() {
 	        return "index";
 	    }
@@ -34,13 +34,5 @@ public class HomePageController {
 	    	User user=new User();
 	    	model.addAttribute("user",user);
 	        return "login";
-	    }
-	    
-	    @RequestMapping(value="/welcome")
-	    public String getWelcome(Model model) {
-	    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			User user = userService.findByEmail(auth.getName());
-			model.addAttribute("WelcomeMsg","Welcome "+user.getName());
-	        return "index";
 	    }
 }
