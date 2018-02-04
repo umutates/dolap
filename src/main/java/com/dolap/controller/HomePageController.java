@@ -3,11 +3,15 @@
  */
 package com.dolap.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dolap.entity.User;
+import com.dolap.service.IUserService;
 
 /**
  * @author umutates
@@ -16,6 +20,9 @@ import com.dolap.entity.User;
 @Controller
 @RequestMapping(value="/")
 public class HomePageController {
+	
+	    @Autowired
+	    IUserService userService;
 	
 	    @RequestMapping(value="/")
 	    public String getIndexPage() {
@@ -29,10 +36,11 @@ public class HomePageController {
 	        return "login";
 	    }
 	    
-	    @RequestMapping("/saveUser")
-	    public String saveUser(Model model) {
-	    	User user=new User();
-	        return "login";
+	    @RequestMapping(value="/welcome")
+	    public String getWelcome(Model model) {
+	    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			User user = userService.findByEmail(auth.getName());
+			model.addAttribute("WelcomeMsg","Welcome "+user.getName());
+	        return "index";
 	    }
-
 }

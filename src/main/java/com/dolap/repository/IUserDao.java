@@ -9,4 +9,6 @@ import com.dolap.entity.User;
  */
 public interface IUserDao extends IBaseDao<User,Long> {
 
+	public User findByEmail(String email);
+
 }

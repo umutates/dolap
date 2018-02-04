@@ -6,13 +6,20 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.dolap.service.impl.UserService;
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
+    
+    @Autowired
+    private UserService userService;
 
     // roles admin allow to access /admin/**
     // roles user allow to access /user/**
@@ -22,30 +29,29 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-					.antMatchers("/", "/index", "/login/**","/product/**","/user/save").permitAll()
+					.antMatchers("/h2","/", "/index", "/login/**","/product/**","/user/save").permitAll()
 					.antMatchers("/admin/**").hasAnyRole("ADMIN")
-					.antMatchers("/user/**").hasAnyRole("USER")
+					.antMatchers("/","/index","/user/**").hasAnyRole("USER")
 					.anyRequest().authenticated()
                 .and()
                 .formLogin()
-					.loginPage("/login")
-					.permitAll()
-					.and()
-                .logout()
-					.permitAll()
-					.and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+					.loginPage("/login").
+					failureUrl("/login?error=true")
+					.defaultSuccessUrl("/welcome")
+					.usernameParameter("email")
+					.passwordParameter("password")
+					.and().logout()
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+					.logoutSuccessUrl("/").and().exceptionHandling()
+					.accessDeniedPage("/access-denied");
     }
 
     // create two users, admin and user
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER")
-                .and()
-                .withUser("admin").password("password").roles("ADMIN");
-    }
+   	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    	      BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+              auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+	}
     
     @Override
 	public void configure(WebSecurity web) throws Exception {
