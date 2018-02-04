@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.dolap.entity.User;
 import com.dolap.service.IUserService;
-import com.dolap.service.impl.UserService;
 
 @Component
 public class ApplicationStartup 
@@ -20,6 +19,11 @@ implements ApplicationListener<ApplicationReadyEvent> {
    */
 	@Override
 	public void onApplicationEvent(final ApplicationReadyEvent event) {
+	  addAdmin();
+
+	}
+	
+	public void addAdmin() {
 		if (userService.findByEmail("admin@dolap.com") == null) {
 			User user = new User();
 			user.setEmail("admin@dolap.com");
