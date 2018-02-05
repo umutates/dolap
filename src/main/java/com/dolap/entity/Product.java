@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.AllArgsConstructor;
 
 
 
@@ -40,7 +39,7 @@ public class Product implements Serializable {
 	private Long luc;
 
 	@Column(length = 50)
-	private String name;
+	private String trademark;
 
 	@Column(name = "SHORT_DESC", length = 200)
 	private String shortDescription;
@@ -61,13 +60,13 @@ public class Product implements Serializable {
 	}
 
 	public Product(String shortDescription, String longDescription, BigDecimal price,
-			Set<ImagePath> largeImagePath,String name) {
+			Set<ImagePath> images,String trademark) {
 		super();
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;
 		this.price = price;
-		this.images = largeImagePath;
-		this.name=name;
+		this.images = images;
+		this.trademark=trademark;
 	}
 
 	public Long getLuc() {
@@ -76,14 +75,6 @@ public class Product implements Serializable {
 
 	public void setLuc(Long luc) {
 		this.luc = luc;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getShortDescription() {
@@ -120,7 +111,7 @@ public class Product implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", shortDescription=" + shortDescription + ", longDescription="
+		return "Product [id=" + id + ", trademark=" + trademark+ ", shortDescription=" + shortDescription + ", longDescription="
 				+ longDescription + ", price=" + price + ", smallImagePath=" + images + ", productType="
 				+ productType + "]";
 	}
