@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dolap.entity.User;
+import com.dolap.service.IProductService;
 import com.dolap.service.IUserService;
 
 /**
@@ -23,9 +24,13 @@ public class HomePageController {
 	
 	    @Autowired
 	    IUserService userService;
+	    
+	    @Autowired
+	    IProductService productService;
 	
 	    @RequestMapping(value= {"/","/index"})
-	    public String getIndexPage() {
+	    public String getIndexPage(Model model) {
+	    	model.addAttribute("products",productService.findAll());
 	        return "index";
 	    }
 	    

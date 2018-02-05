@@ -3,7 +3,7 @@
  */
 package com.dolap.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
 import com.dolap.entity.Product;
 
@@ -12,5 +12,7 @@ import com.dolap.entity.Product;
  *2 Şub 2018
  */
 public interface IProductDao extends IBaseDao<Product,Long>{
+
+	public List<Product> findAll();
 
 }
