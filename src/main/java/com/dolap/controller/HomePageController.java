@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.dolap.entity.Product;
 import com.dolap.entity.User;
 import com.dolap.service.IProductService;
 import com.dolap.service.IUserService;
@@ -43,4 +45,12 @@ public class HomePageController {
 	    public void addAttribute(Model model) {
 	    	model.addAttribute("products",productService.findAll());
 	    }
+	    
+	    @RequestMapping(value= {"/product"})
+	    public String getAddProduct(Model model) {
+		    model.addAttribute("product", new Product());
+	        return "productAdd";
+	    }
+		
+
 }
