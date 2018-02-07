@@ -354,17 +354,17 @@
 					<div class="tab-content">
 						<div class="tab-pane fade active in" id="tshirt">
 						<div th:each="product: ${products}">
-							<div th:if="${product.productType}==TSHIRT"  class="col-sm-3">
+							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==TSHIRT"  class="col-sm-3">
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
 											<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
+												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
 													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
 													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 											</div>
-												<h2 ><span th:text="${product.price}">56$</span></h2>
-											<p>Easy Polo Black Edition</p>
+												<h2 ><span th:text="${product.price+'$'}">56$</span></h2>
+											<p><span th:text="${product.shortDescription}"></span></p>
 											<a href="#" class="btn btn-default add-to-cart"><i
 												class="fa fa-shopping-cart"></i>Add to cart</a>
 												
@@ -378,17 +378,17 @@
 
 						<div class="tab-pane fade" id="blazers">
 				          <div th:each="product: ${products}">
-							<div th:if="${product.productType}==BLAZERS"  class="col-sm-3">
+							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==BLAZERS"  class="col-sm-3">
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
 												<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
+												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
 													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
 													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 												</div>
-												<h2 ><span th:text="${product.price}">56$</span></h2>
-											<p>Easy Polo Black Edition</p>
+												<h2 ><span th:text="${product.price+'$'}">56$</span></h2>
+											<p><span th:text="${product.shortDescription}"></span></p>
 											<a href="#" class="btn btn-default add-to-cart"><i
 												class="fa fa-shopping-cart"></i>Add to cart</a>
 												
@@ -402,17 +402,17 @@
 
 						<div class="tab-pane fade" id="sunglass">
 					    <div th:each="product: ${products}">
-							<div th:if="${product.productType}==SUNGLASS"  class="col-sm-3">
+							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==SUNGLASS"  class="col-sm-3">
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
 												<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
+												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
 													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
 													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 												</div>
-												<h2 ><span th:text="${product.price}">56$</span></h2>
-											<p>Easy Polo Black Edition</p>
+												<h2 ><span th:text="${product.price+'$'}">56$</span></h2>
+											<p><span th:text="${product.shortDescription}"></span></p>
 											<a href="#" class="btn btn-default add-to-cart"><i
 												class="fa fa-shopping-cart"></i>Add to cart</a>
 												
@@ -426,17 +426,17 @@
 
 						<div class="tab-pane fade" id="kids">
 						    <div th:each="product: ${products}">
-							<div th:if="${product.productType}==KIDS"  class="col-sm-3">
+							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==KIDS"  class="col-sm-3">
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
 												<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
+												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
 													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
 													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 												</div>
-												<h2 ><span th:text="${product.price}">56$</span></h2>
-											<p>Easy Polo Black Edition</p>
+												<h2 ><span th:text="${product.price}+'$'">56$</span></h2>
+											<p><span th:text="${product.shortDescription}"></span></p>
 											<a href="#" class="btn btn-default add-to-cart"><i
 												class="fa fa-shopping-cart"></i>Add to cart</a>
 												
@@ -450,17 +450,17 @@
 
 						<div class="tab-pane fade" id="poloshirt">
 							    <div th:each="product: ${products}">
-							<div th:if="${product.productType}==POLOSHIRT"  class="col-sm-3">
+							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==POLOSHIRT"  class="col-sm-3">
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
 												<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
+												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
 													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
 													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 												</div>
-												<h2 ><span th:text="${product.price}">56$</span></h2>
-											<p>Easy Polo Black Edition</p>
+												<h2 ><span th:text="${product.price}+'$'">56$</span></h2>
+											<p><span th:text="${product.shortDescription}"></span></p>
 											<a href="#" class="btn btn-default add-to-cart"><i
 												class="fa fa-shopping-cart"></i>Add to cart</a>
 												
@@ -920,21 +920,21 @@
     
     var slideIndex = 1;
     for (let product of products) {
-    	 console.log(product);
     	 showDivs(slideIndex,product.id);
 	}
     
    
 
     function plusDivs(n,id) {
+      var x=document.getElementById("Product"+id);
+      slideIndex=parseInt(x.getAttribute('data-cmd'));
       showDivs(slideIndex += n,id);
+      x.setAttribute("data-cmd",slideIndex);
     }
 
     function showDivs(n,id) {
       var i;
-      var x = document.getElementsByName(id);
-      console.log(x);
-      console.log(id);
+      var x = document.getElementsByName("myslides"+id);
       if (n > x.length) {slideIndex = 1}    
       if (n < 1) {slideIndex = x.length}
       for (i = 0; i < x.length; i++) {
