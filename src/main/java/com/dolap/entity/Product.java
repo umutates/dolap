@@ -2,6 +2,7 @@ package com.dolap.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -49,10 +50,18 @@ public class Product implements Serializable {
 
 	private BigDecimal price;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "product")
-	private Set<ImagePath> images;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval=true)
+	private Set<Image> images=new HashSet<>();
 
-	@Column(name = "PRODUCT_TYPE", insertable = false, updatable = false)
+	public Set<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(Set<Image> images) {
+		this.images = images;
+	}
+
+	@Column(name = "PRODUCT_TYPE")
 	private String productType;
 
 
@@ -60,13 +69,14 @@ public class Product implements Serializable {
 	}
 
 	public Product(String shortDescription, String longDescription, BigDecimal price,
-			Set<ImagePath> images,String trademark) {
+			Set<Image> images,String trademark,String productType) {
 		super();
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;
 		this.price = price;
 		this.images = images;
 		this.trademark=trademark;
+		this.productType=productType;
 	}
 
 	public Long getLuc() {
@@ -107,6 +117,10 @@ public class Product implements Serializable {
 
 	public void setProductType(String productType) {
 		this.productType = productType;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 
 	@Override

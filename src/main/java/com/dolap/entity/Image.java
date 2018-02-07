@@ -1,5 +1,7 @@
 package com.dolap.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,15 +12,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * @author umutates
  * @since 2 Şub 2018
  */
 @Entity
-@Table(name="IMAGEPATH")
-public class ImagePath {
+@Table(name="IMAGE")
+public class Image implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -26,19 +35,9 @@ public class ImagePath {
 	@Version
 	private Long luc;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_product")
-	private Product product;
-	
 	private String imagePath;
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+	
+	private String fileName;
 
 	public String getImagePath() {
 		return imagePath;
@@ -46,6 +45,14 @@ public class ImagePath {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

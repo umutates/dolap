@@ -31,7 +31,6 @@ public class ProductService implements IProductService {
 
 	@Override
 	public List<Product> findAll() {
-	  
 		return   productDao.findAll();
 	}
 

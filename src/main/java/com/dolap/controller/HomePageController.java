@@ -4,10 +4,9 @@
 package com.dolap.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dolap.entity.User;
@@ -30,7 +29,6 @@ public class HomePageController {
 	
 	    @RequestMapping(value= {"/","/index"})
 	    public String getIndexPage(Model model) {
-	    	model.addAttribute("products",productService.findAll());
 	        return "index";
 	    }
 	    
@@ -39,5 +37,10 @@ public class HomePageController {
 	    	User user=new User();
 	    	model.addAttribute("user",user);
 	        return "login";
+	    }
+	    
+	    @ModelAttribute
+	    public void addAttribute(Model model) {
+	    	model.addAttribute("products",productService.findAll());
 	    }
 }
