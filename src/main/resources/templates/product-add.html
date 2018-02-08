@@ -143,15 +143,15 @@
 	<section>
 		<div class="container">
 			<div class="col-sm-4">
-					<div class="signup-form"><!--sign up form-->
+					<div class="signup-form">
 						<h2>Save Product</h2>
-                        <form th:action="@{/product/save}" th:object="${product}" method="post">							
-                            <input id="tradeMark" type="text" name="tradeMark" placeholder="tradeMark"/>
+                        <form th:action="@{/product/save}" th:object="${product}" method="post" enctype="multipart/form-data">							
+                            <input id="trademark" type="text" name="trademark" placeholder="trademark"/>
 							<input id="shortDescription" type="text" name="shortDescription" placeholder="shortDescription"/>
                             <input id="longDescription" type="text" name="longDescription" placeholder="longDescription"/> 
-							<input id=" price" type="text" name=" price" placeholder=" price"/>
-							<input id="shortDescription" type="text" name="shortDescription" placeholder="shortDescription"/>
-							<button type="submit" class="btn btn-default">Save</button>
+							<input id=" price" type="number" name=" price" placeholder=" price"/>
+							<input id="files" type="file" name="files" onchange="updateSize();" multiple="multiple"/> selected files:<span id="fileNum">0</span>
+						<button type="submit" class="btn btn-default">Save</button>
 						</form>
 					</div><!--/sign up form-->
 				</div>
@@ -301,6 +301,15 @@
 	</footer>
 	<!--/Footer-->
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	      <script>
+	      function updateSize() {
+              var nBytes = 0;
+              var oFiles = document.getElementById("files").files;
+              console.log(oFiles);
+              var nFiles = oFiles.length;
+              document.getElementById("fileNum").innerHTML = nFiles;
+	      }
+        </script>
 
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
