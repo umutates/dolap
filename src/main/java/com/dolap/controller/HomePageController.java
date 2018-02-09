@@ -38,7 +38,6 @@ public class HomePageController {
 	    @RequestMapping(value= {"/","/index"})
 	    public String getIndexPage(Model model) {
 	    	List<Product> products=productService.findAll();
-	    	LOG.error("Products:", products);;
 	    	model.addAttribute("products",products);
 	        return "index";
 	    }
