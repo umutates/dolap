@@ -3,10 +3,14 @@
  */
 package com.dolap.controller;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dolap.entity.Product;
@@ -22,14 +26,20 @@ import com.dolap.service.IUserService;
 @RequestMapping(value="/")
 public class HomePageController {
 	
+	 private final Logger LOG = LoggerFactory.getLogger(getClass());
+	
 	    @Autowired
 	    IUserService userService;
 	    
 	    @Autowired
 	    IProductService productService;
-	
+	    
+	  
 	    @RequestMapping(value= {"/","/index"})
 	    public String getIndexPage(Model model) {
+	    	List<Product> products=productService.findAll();
+	    	LOG.error("Products:", products);;
+	    	model.addAttribute("products",products);
 	        return "index";
 	    }
 	    
@@ -45,8 +55,9 @@ public class HomePageController {
 	        return "product-add";
 	    }
 		
-	    @ModelAttribute
+	    @Cacheable(value = "products")
 	    public void addAttribute(Model model) {
+	    	LOG.info("products were taken to cache");
 	    	model.addAttribute("products",productService.findAll());
 	    }
 
