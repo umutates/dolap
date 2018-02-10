@@ -98,12 +98,10 @@
 							<ul class="nav navbar-nav">
 								<span sec:authorize="isAuthenticated()">
 									<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-									<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-									<sec:authorize access="hasRole('ADMIN')">
-                                    <li><a th:href="@{/product}"><i
-											class="fa fa-crosshairs"></i>Product Add</a></li>
-                                    </sec:authorize>
-									<li><a href="cart.html"><i class="fa fa-shopping-cart"></i>
+									<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li> 
+									<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/product}"><i
+												class="fa fa-crosshairs"></i>Product Add</a></li>
+									<li><a href="#"><i class="fa fa-shopping-cart"></i>
 											Cart</a></li>
 								</span>
 
@@ -324,137 +322,211 @@
 					<!--category-tab-->
 					<div class="col-sm-12">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tshirt" data-toggle="tab">T-Shirt</a></li>
-							<li><a href="#blazers" data-toggle="tab">Blazers</a></li>
-							<li><a href="#sunglass" data-toggle="tab">Sunglass</a></li>
-							<li><a href="#kids" data-toggle="tab">Kids</a></li>
-							<li><a href="#poloshirt" data-toggle="tab">Polo shirt</a></li>
+							<li class="active"><a href="#tshirt" data-toggle="tab">T-SHIRT</a></li>
+							<li><a href="#blazers" data-toggle="tab">BLAZERS</a></li>
+							<li><a href="#sunglass" data-toggle="tab">SUNGLASS</a></li>
+							<li><a href="#kids" data-toggle="tab">KIDS</a></li>
+							<li><a href="#poloshirt" data-toggle="tab">POLO SHIRT</a></li>
 						</ul>
 					</div>
 					<div class="tab-content">
 						<div class="tab-pane fade active in" id="tshirt">
-						<div th:each="product: ${products}">
-							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==TSHIRT"  class="col-sm-3">
-								<div class="product-image-wrapper">
-									<div class="single-products">
-										<div class="productinfo text-center">
-											<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
-													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
-													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
-											</div>
-												<h2 ><span th:text="${product.price+'$'}">56$</span></h2>
-											<p><span th:text="${product.shortDescription}"></span></p>
-											<a href="#" class="btn btn-default add-to-cart"><i
-												class="fa fa-shopping-cart"></i>Add to cart</a>
-												
-										</div>
+							<div th:each="product: ${products}">
+								<div th:id="'Product'+${product.id}" data-cmd="1"
+									th:if="${product.productType}==TSHIRT" class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<div class="w3-content w3-display-container">
+													<div th:each="image:${product.images}">
+														<img th:name="'myslides'+${product.id}" class="mySlides"
+															th:src="${image.imagePath}" alt="" />
+													</div>
+													<button class="w3-button w3-black w3-display-left"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
+													<button class="w3-button w3-black w3-display-right"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
+												</div>
+												<h2>
+													<span th:text="${product.price+'$'}">56$</span>
+												</h2>
+												<p>
+													<span th:text="${product.shortDescription}"></span>
+												</p>
+												<a href="#" class="btn btn-default add-to-cart"><i
+													class="fa fa-shopping-cart"></i>Add to cart</a> <span
+													sec:authorize="isAuthenticated()"> <br></br> <a
+													sec:authorize="hasAuthority('ADMIN')"
+													class="btn btn-default"
+													th:href="${'/product/delete/' + product.id}">Delete</a>
+												</span>
 
+
+											</div>
+
+										</div>
 									</div>
 								</div>
 							</div>
-                          </div>
 						</div>
 
 						<div class="tab-pane fade" id="blazers">
-				          <div th:each="product: ${products}">
-							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==BLAZERS"  class="col-sm-3">
-								<div class="product-image-wrapper">
-									<div class="single-products">
-										<div class="productinfo text-center">
+							<div th:each="product: ${products}">
+								<div th:id="'Product'+${product.id}" data-cmd="1"
+									th:if="${product.productType}==BLAZERS" class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
 												<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
-													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
-													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
+													<div th:each="image:${product.images}">
+														<img th:name="'myslides'+${product.id}" class="mySlides"
+															th:src="${image.imagePath}" alt="" />
+													</div>
+													<button class="w3-button w3-black w3-display-left"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
+													<button class="w3-button w3-black w3-display-right"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 												</div>
-												<h2 ><span th:text="${product.price+'$'}">56$</span></h2>
-											<p><span th:text="${product.shortDescription}"></span></p>
-											<a href="#" class="btn btn-default add-to-cart"><i
-												class="fa fa-shopping-cart"></i>Add to cart</a>
-												
-										</div>
+												<h2>
+													<span th:text="${product.price+'$'}">56$</span>
+												</h2>
+												<p>
+													<span th:text="${product.shortDescription}"></span>
+												</p>
+												<a href="#" class="btn btn-default add-to-cart"><i
+													class="fa fa-shopping-cart"></i>Add to cart</a> <span
+													sec:authorize="isAuthenticated()"> <br></br> <a
+													sec:authorize="hasAuthority('ADMIN')"
+													class="btn btn-default"
+													th:href="${'/product/delete/' + product.id}">Delete</a>
+												</span>
 
+											</div>
+
+										</div>
 									</div>
 								</div>
 							</div>
-                          </div>
 						</div>
 
 						<div class="tab-pane fade" id="sunglass">
-					    <div th:each="product: ${products}">
-							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==SUNGLASS"  class="col-sm-3">
-								<div class="product-image-wrapper">
-									<div class="single-products">
-										<div class="productinfo text-center">
+							<div th:each="product: ${products}">
+								<div th:id="'Product'+${product.id}" data-cmd="1"
+									th:if="${product.productType}==SUNGLASS" class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
 												<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
-													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
-													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
+													<div th:each="image:${product.images}">
+														<img th:name="'myslides'+${product.id}" class="mySlides"
+															th:src="${image.imagePath}" alt="" />
+													</div>
+													<button class="w3-button w3-black w3-display-left"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
+													<button class="w3-button w3-black w3-display-right"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 												</div>
-												<h2 ><span th:text="${product.price+'$'}">56$</span></h2>
-											<p><span th:text="${product.shortDescription}"></span></p>
-											<a href="#" class="btn btn-default add-to-cart"><i
-												class="fa fa-shopping-cart"></i>Add to cart</a>
-												
-										</div>
+												<h2>
+													<span th:text="${product.price+'$'}">56$</span>
+												</h2>
+												<p>
+													<span th:text="${product.shortDescription}"></span>
+												</p>
+												<a href="#" class="btn btn-default add-to-cart"><i
+													class="fa fa-shopping-cart"></i>Add to cart</a> <span
+													sec:authorize="isAuthenticated()"> <br></br> <a
+													sec:authorize="hasAuthority('ADMIN')"
+													class="btn btn-default"
+													th:href="${'/product/delete/' + product.id}">Delete</a>
+												</span>
+											</div>
 
+										</div>
 									</div>
 								</div>
 							</div>
-                          </div>
 						</div>
 
 						<div class="tab-pane fade" id="kids">
-						    <div th:each="product: ${products}">
-							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==KIDS"  class="col-sm-3">
-								<div class="product-image-wrapper">
-									<div class="single-products">
-										<div class="productinfo text-center">
+							<div th:each="product: ${products}">
+								<div th:id="'Product'+${product.id}" data-cmd="1"
+									th:if="${product.productType}==KIDS" class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
 												<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
-													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
-													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
+													<div th:each="image:${product.images}">
+														<img th:name="'myslides'+${product.id}" class="mySlides"
+															th:src="${image.imagePath}" alt="" />
+													</div>
+													<button class="w3-button w3-black w3-display-left"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
+													<button class="w3-button w3-black w3-display-right"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 												</div>
-												<h2 ><span th:text="${product.price}+'$'">56$</span></h2>
-											<p><span th:text="${product.shortDescription}"></span></p>
-											<a href="#" class="btn btn-default add-to-cart"><i
-												class="fa fa-shopping-cart"></i>Add to cart</a>
-												
-										</div>
+												<h2>
+													<span th:text="${product.price}+'$'">56$</span>
+												</h2>
+												<p>
+													<span th:text="${product.shortDescription}"></span>
+												</p>
+												<a href="#" class="btn btn-default add-to-cart"><i
+													class="fa fa-shopping-cart"></i>Add to cart</a> <span
+													sec:authorize="isAuthenticated()"> <br></br> <a
+												    sec:authorize="hasAuthority('ADMIN')"
+													class="btn btn-default"
+													th:href="${'/product/delete/' + product.id}">Delete</a>
+												</span>
 
+											</div>
+
+										</div>
 									</div>
 								</div>
 							</div>
-                          </div>
 						</div>
 
 						<div class="tab-pane fade" id="poloshirt">
-							    <div th:each="product: ${products}">
-							<div th:id="'Product'+${product.id}" data-cmd="1" th:if="${product.productType}==POLOSHIRT"  class="col-sm-3">
-								<div class="product-image-wrapper">
-									<div class="single-products">
-										<div class="productinfo text-center">
+							<div th:each="product: ${products}">
+								<div th:id="'Product'+${product.id}" data-cmd="1"
+									th:if="${product.productType}==POLOSHIRT" class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
 												<div class="w3-content w3-display-container">
-												<div th:each="image:${product.images}"><img th:name="'myslides'+${product.id}" class="mySlides" th:src="${image.imagePath}"  alt="" /></div>
-													<button class="w3-button w3-black w3-display-left"  th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
-													<button class="w3-button w3-black w3-display-right" th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
+													<div th:each="image:${product.images}">
+														<img th:name="'myslides'+${product.id}" class="mySlides"
+															th:src="${image.imagePath}" alt="" />
+													</div>
+													<button class="w3-button w3-black w3-display-left"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10094;</button>
+													<button class="w3-button w3-black w3-display-right"
+														th:onclick="${'plusDivs(1,' + product.id + ')'}">&#10095;</button>
 												</div>
-												<h2 ><span th:text="${product.price}+'$'">56$</span></h2>
-											<p><span th:text="${product.shortDescription}"></span></p>
-											<a href="#" class="btn btn-default add-to-cart"><i
-												class="fa fa-shopping-cart"></i>Add to cart</a>
-												
-										</div>
+												<h2>
+													<span th:text="${product.price}+'$'">56$</span>
+												</h2>
+												<p>
+													<span th:text="${product.shortDescription}"></span>
+												</p>
+												<a href="#" class="btn btn-default add-to-cart"><i
+													class="fa fa-shopping-cart"></i>Add to cart</a> <span
+													sec:authorize="isAuthenticated()"> <br></br> <a
+													 sec:authorize="hasAuthority('ADMIN')"
+													class="btn btn-default"
+													th:href="${'/product/delete/' + product.id}">Delete</a>
+												</span>
+											</div>
 
+										</div>
 									</div>
 								</div>
 							</div>
-                          </div>
 						</div>
 					</div>
 				</div>
-			<!--/category-tab-->
-	<div class="col-sm-9 padding-right">
+				<!--/category-tab-->
+				<div class="col-sm-9 padding-right">
 					<div class="features_items">
 						<!--features_items-->
 						<h2 class="title text-center">Features Items</h2>

@@ -142,6 +142,7 @@
 								Keep me signed in
 							</span>
 							<button type="submit" class="btn btn-default">Login</button>
+							  <label id="error" hidden="hidden">User Account Not Found By This Email</label>
 						</form>
 					</div><!--/login form-->
 				</div>
@@ -156,6 +157,7 @@
 							<input id="email" type="email" name="email" placeholder="Email Address"/>
 							<input id="password" type="password" name="password" placeholder="Password"/>
 							<button type="submit" class="btn btn-default">Signup</button>
+						    <label th:text="${message}"></label>
 						</form>
 					</div><!--/sign up form-->
 				</div>
@@ -299,7 +301,15 @@
 		</div>
 		
 	</footer><!--/Footer-->
-
+    <script type="text/javascript">
+    var urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams);
+    if (urlParams.get("error")) {
+    	  var x=document.getElementById("error");
+    	  console.log(x);
+          x.removeAttribute("hidden");
+	}
+    </script>
 
 	<script src="js/jquery.js"></script>
 	<script src="js/price-range.js"></script>

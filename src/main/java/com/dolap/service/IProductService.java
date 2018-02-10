@@ -10,4 +10,6 @@ public interface IProductService {
 	
 	public List<Product> findAll();
 
+	public void delete(Integer productId);
+
 }

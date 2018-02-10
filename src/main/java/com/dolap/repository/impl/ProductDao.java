@@ -10,7 +10,7 @@ import com.dolap.entity.Product;
 import com.dolap.repository.IProductDao;
 
 @Repository
-public class ProductDao extends BaseDao<Product,Long> implements IProductDao {
+public class ProductDao extends BaseDao<Product,Integer> implements IProductDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 

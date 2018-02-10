@@ -24,7 +24,7 @@ public class User {
 	private Long luc;
 
 	private String name;
-
+    
 	private String email;
 	
 	private String role;

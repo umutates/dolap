@@ -145,12 +145,16 @@
 			<div class="col-sm-4">
 					<div class="signup-form">
 						<h2>Save Product</h2>
-                        <form th:action="@{/product/save}" th:object="${product}" method="post" enctype="multipart/form-data">							
-                            <input id="trademark" type="text" name="trademark" placeholder="trademark"/>
-							<input id="shortDescription" type="text" name="shortDescription" placeholder="shortDescription"/>
+                        <form th:action="@{/product/save}" th:object="${product}" method="post" enctype="multipart/form-data">
+						    <select required="required" th:field="*{productType}">
+						    <option value="" hidden="hidden" selected="selected">Select Product Type</option>
+							<option th:each="productType : ${productTypes}" th:value="${productType}"
+								th:text="${productType}">Wireframe</option></select> <br></br><br></br>
+							<input id="trademark" required="required" type="text" name="trademark" placeholder="trademark"/>
+							<input id="shortDescription" required="required" type="text" name="shortDescription" placeholder="shortDescription"/>
                             <input id="longDescription" type="text" name="longDescription" placeholder="longDescription"/> 
-							<input id=" price" type="number" name=" price" placeholder=" price"/>
-							<input id="files" type="file" name="files" onchange="updateSize();" multiple="multiple"/> selected files:<span id="fileNum">0</span>
+							<input id=" price" required="required" type="number" name=" price" placeholder=" price"/>
+							<input id="files" required="required" type="file" name="files" onchange="updateSize();" multiple="multiple"/> selected files:<span id="fileNum">0</span>
 						<button type="submit" class="btn btn-default">Save</button>
 						</form>
 					</div><!--/sign up form-->
