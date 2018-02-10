@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,8 +46,18 @@ public class ProductService implements IProductService {
 	@CacheEvict(value = "products", allEntries = true)
 	@Override
 	public void delete(Integer productId) {
-		Product product=productDao.byId(productId);
-		productDao.delete(product);
+		try {
+			Product product=productDao.byId(productId);
+			productDao.delete(product);
+		} catch (Exception e) {
+			throw new NullPointerException("null object not deleted");
+		}
+	
+	}
+
+	@Override
+	public Product findById(Integer productId) {
+		return productDao.byId(productId);
 	}
 
 }

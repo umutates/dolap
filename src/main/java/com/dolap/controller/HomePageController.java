@@ -8,7 +8,6 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,12 +36,14 @@ public class HomePageController {
 
 	@RequestMapping(value = { "/", "/index" })
 	public String getIndexPage(Model model) {
+		LOG.info("return index page");
 		return "index";
 	}
 	
 	@RequestMapping(value = { "/product" })
 	public String getAddProduct(Model model) {
 		model.addAttribute("product", new Product());
+		LOG.info("return product page");
 		return "product-add";
 	}
 
@@ -50,17 +51,20 @@ public class HomePageController {
 	public String getLoginPage(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
+		LOG.info("return login page");
 		return "login";
 	}
 
 	@ModelAttribute
 	public void addProductsAttribute(Model model) {
 		model.addAttribute("products", productService.findAll());
+		LOG.info("All Product added to model");
 	}
 	@ModelAttribute
 	public void addProductTypeAttribute(Model model) {
 		String[] productTypes=Arrays.stream(ProductType.class.getEnumConstants()).map(Enum::name).toArray(String[]::new);
 		model.addAttribute("productTypes",productTypes);
+		LOG.info("All Product Types added to model");
 	}
 
 }

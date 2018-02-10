@@ -3,8 +3,6 @@
  */
 package com.dolap.repository;
 
-import java.util.List;
-
 import com.dolap.entity.Product;
 
 /**
@@ -13,6 +11,5 @@ import com.dolap.entity.Product;
  */
 public interface IProductDao extends IBaseDao<Product,Integer>{
 
-	public List<Product> findAll();
 
 }
